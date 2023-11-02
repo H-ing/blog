@@ -1,22 +1,36 @@
-name: Build and Deploy
+
+name: deploy
+
 on:
   push:
-    branches: [ main ]
+    branches: [main] # master 分支有 push 时触发
+    paths-ignore:   # 下列文件的变更不触发部署，可以自行添加
+      - README.md
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2 
 
-      - name: Install and Build 🔧 
-        run: |
-          npm install
-          npm run build
+      # 下载源码
+      # 这一步就是检出你的仓库并下载里面的代码到runner中,actions/checkout@v2是官方自己造的轮子，直接拿来用就行
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      # 打包构建
+      - name: Build
+        uses: actions/setup-node@master
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: main
-          FOLDER: build
+          node-version: '16.x'
+      - run: npm install # 安装依赖
+      - run: npm run build # 打包
+
+      # 部署到 GitHub pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3 # 使用部署到 GitHub pages 的 action
+        with:
+          publish_dir: ./build # 部署打包后的 build 目录
+          github_token: ${{ secrets.ACCESS_TOKEN }} # secret 名
+          user_name: ''
+          user_email: ''
+          commit_message: 自动部署 # 部署时的 git 提交信息，自由填写
