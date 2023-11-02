@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/H-ing/blog/issues"
   },
-  "homepage": "https://github.com/H-ing/blog#readme",
+  "homepage": "https://h-ing.github.io/H-ing/blog",
   "devDependencies": {
     "@babel/core": "^7.23.2",
     "@babel/plugin-transform-runtime": "^7.23.2",
