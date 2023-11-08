@@ -1,0 +1,46 @@
+.avatar-container {
+    position: absolute;
+    left: 80px;
+    bottom: 0px;
+    width: 100px;
+    height: 60px;
+    background: radial-gradient(circle at 50% 50px, #fff5e7 49px, transparent 50px);
+
+    &::before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 10px;
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        background: radial-gradient(circle at 0 0, transparent 10px, #fff5e7 11px);
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 10px;
+        position: absolute;
+        bottom: 0;
+        right: -10px;
+        background: radial-gradient(circle at 100% 0, transparent 10px, #fff5e7 11px);
+        z-index: 1;
+    }
+
+    .avatar {
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
+        position: absolute;
+        left: 7px;
+        top: 7px;
+        z-index: 2;
+
+        background-color: #fff;
+        text-align: center;
+        vertical-align: middle;
+    }
+}

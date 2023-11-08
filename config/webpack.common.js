@@ -4,8 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerWebpacktPlugin = require('css-minimizer-webpack-plugin')
 
+
 module.exports = {
-    entry: path.join(__dirname, '../src/index.js'),
+    entry: {
+        main: path.join(__dirname, '../src/index.js')
+    },
     output: {
         filename: 'bundle.js',
         path: path.join(__dirname, '../dist'),
@@ -19,10 +22,12 @@ module.exports = {
                 use: ['babel-loader']
             },
             {
-                test: /\.(css|sass)$/i,
+                test: /\.(css|sass|scss)$/i,
                 use: [
                     MiniCssExtractPlugin.loader, 
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'        
                 ]
             },
             {
@@ -34,7 +39,7 @@ module.exports = {
     plugins: [
         new webpack.ProgressPlugin(),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, '../index.html'),
+            template: path.join(__dirname, '../public/index.html'),
         }),
         new MiniCssExtractPlugin({
             filename: './style/[contenthash].css'
@@ -44,5 +49,10 @@ module.exports = {
         minimizer: [
             new CssMinimizerWebpacktPlugin()
         ]
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, '../src')
+        }
     }
 }

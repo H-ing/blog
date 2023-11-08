@@ -1,10 +1,13 @@
 import React from 'react'
-import {createRoot } from 'react-dom'
+import { createRoot } from 'react-dom/client'
+import Layout from '@/components/Layout'
+import '@/styles/index.scss'
 
-import './index.css'
 
 const App = () => {
-    return <h1>Hello</h1>
+    return  (
+        <Layout />
+    )
 }
 
 const root = createRoot(document.getElementById('root'))
